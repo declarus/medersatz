@@ -3,4 +3,11 @@ Rails.application.routes.draw do
 
   # Serve websocket cable requests in-process
   # mount ActionCable.server => '/cable'
+
+  namespace :api do
+    namespace :v1 do
+      post '/meds/search', to: 'meds#search', as: 'meds_search'
+      get '/meds/:id', to: 'meds#show', as: 'med_path'
+    end
+  end
 end

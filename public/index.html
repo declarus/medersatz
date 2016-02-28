@@ -1,0 +1,78 @@
+<html>
+  <head>
+  <!-- LOAD JQUERY -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <!-- LOAD ANGULAR -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+
+    <!-- PROCESS FORM WITH AJAX (NEW) -->
+    <script>
+
+      // define angular module/app
+      var formApp = angular.module('formApp', []);
+
+      // create angular controller and pass in $scope and $http
+      function formController($scope, $http) {
+
+        $scope.formData = {};
+
+        $scope.processForm = function() {
+          var data = angular.extend($scope.formData, {page: 1, per_page: 20});
+          $http({
+            method: 'POST',
+            url: '/api/v1/meds/search',
+            data: data,
+            headers: { 'Content-Type': 'application/json' }
+          })
+          .success(function(data) {
+            if (data.length == 0) {
+              // TODO: no results
+              $scope.results = "We're sorry, no results";
+            } else {
+              console.log(data);
+              // if successful, bind success message to message
+              $scope.results = data;
+            }
+          });
+        }
+      }
+
+    </script>
+  </head>
+
+  <!-- apply the module and controller to our body so angular is applied to that -->
+  <body ng-app="formApp" ng-controller="formController" ng-submit="processForm()">
+    <p>For now, all medicines are named after Starwars planets or species. 'Ewok', 'Tattooine', 'Takodana', 'Jawa' all return results.</p>
+
+    <form>
+      <!-- QUERY -->
+      <div id="query-group" class="form-group">
+        <input type="text" name="query" class="form-control" placeholder="Der generischer- oder Brand-name von einem Medikament" size="100px" ng-model="formData.query">
+      </div>
+
+      <!-- SUBMIT BUTTON -->
+      <button type="submit" class="btn btn-success btn-lg btn-block">
+        <span class="glyphicon glyphicon-flash"></span> Submit!
+      </button>
+    </form>
+
+    <div id="results" ng-show="results">
+      <div style="clear:both;">
+        <div style="clear:both;">
+          <div style="position:relative;float:left;width:25%;">brand_name</div>
+          <div style="position:relative;float:left;width:25%;">generic_name</div>
+          <div style="position:relative;float:left;width:25%;">apis</div>
+          <div style="position:relative;float:left;width:25%;">price_cents</div>
+        </div>
+        <div ng-repeat="result in results">
+          <div style="clear:both;">
+            <div style="position:relative;float:left;width:25%;">{{result.brand_name}}</div>
+            <div style="position:relative;float:left;width:25%;">{{result.generic_name}}</div>
+            <div style="position:relative;float:left;width:25%;">{{result.apis}}</div>
+            <div style="position:relative;float:left;width:25%;">{{result.price_cents}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

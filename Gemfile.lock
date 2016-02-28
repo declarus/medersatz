@@ -45,6 +45,8 @@ GEM
     concurrent-ruby (1.0.0)
     diff-lcs (1.2.5)
     erubis (2.7.0)
+    faker (1.6.3)
+      i18n (~> 0.5)
     ffi (1.9.10)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
@@ -94,6 +96,11 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails_12factor (0.0.3)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.5)
+    rails_stdout_logging (0.0.4)
     railties (5.0.0.beta3)
       actionpack (= 5.0.0.beta3)
       activesupport (= 5.0.0.beta3)
@@ -145,11 +152,13 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  faker
   listen (~> 3.0.5)
   pg (~> 0.18)
   pry
   puma
   rails (>= 5.0.0.beta3, < 5.1)
+  rails_12factor
   rspec-rails
   spring
   spring-watcher-listen (~> 2.0.0)
