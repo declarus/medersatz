@@ -35,6 +35,11 @@
             }
           });
         }
+
+        $scope.showMedication = function(result) {
+          result.show = (result.show == false || result.show == null) ? true : false;
+          return result;
+        }
       }
 
     </script>
@@ -65,11 +70,14 @@
           <div style="position:relative;float:left;width:25%;">price_cents</div>
         </div>
         <div ng-repeat="result in results">
-          <div style="clear:both;">
+          <div style="clear:both;" ng-click="showMedication(result)">
             <div style="position:relative;float:left;width:25%;">{{result.brand_name}}</div>
             <div style="position:relative;float:left;width:25%;">{{result.generic_name}}</div>
             <div style="position:relative;float:left;width:25%;">{{result.apis}}</div>
             <div style="position:relative;float:left;width:25%;">{{result.price_cents}}</div>
+          </div>
+          <div style="clear:both;position:relative;float:left;width:100%" ng-show="result.show">
+            <p>I am deatils</p>
           </div>
         </div>
       </div>
