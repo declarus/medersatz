@@ -8,7 +8,7 @@
 
 100.times do
   generic_name = Faker::StarWars.planet
-  apis = [generic_name, "ff#{Faker::StarWars.planet}", Faker::StarWars.planet].uniq.join(', ')
+  apis = [generic_name, "ff#{Faker::StarWars.planet.downcase}", Faker::StarWars.planet].uniq.join(', ')
   price = [1399, 1200, 1600, 5000].sample
   Med.create(brand_name: Faker::StarWars.specie, generic_name: generic_name, apis: apis, price_cents: price)
 end

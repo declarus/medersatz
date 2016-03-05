@@ -74,7 +74,7 @@
             <div style="position:relative;float:left;width:25%;">{{result.brand_name}}</div>
             <div style="position:relative;float:left;width:25%;">{{result.generic_name}}</div>
             <div style="position:relative;float:left;width:25%;">{{result.apis}}</div>
-            <div style="position:relative;float:left;width:25%;">{{result.price_cents}}</div>
+            <div style="position:relative;float:left;width:25%;">{{ result.price | currency: result.currency_symbol}}</div>
           </div>
           <div style="clear:both;position:relative;float:left;width:100%" ng-show="result.show">
             <p>I am deatils</p>
