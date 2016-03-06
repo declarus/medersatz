@@ -1,0 +1,48 @@
+<div id="results" ng-show="results">
+  <p>Displaying {{ page_results }} of {{ total_results }} results</p>
+
+  <span ng-if="page > 1">
+    <button ng-click="firstPage()">1</button>
+  </span>
+  <span ng-if="page != 1">
+    <button ng-click="previousPage(page)">Previous</button>
+  </span>
+  <span ng-if="page != lastPageNumber">
+    <button ng-click="nextPage(page)">Next</button>
+  </span>
+  <span ng-if="page != lastPageNumber">
+    <button ng-click="lastPage()">Last</button>
+  </span>
+
+
+    <div style="clear:both;">
+      <div style="position:relative;float:left;width:25%;">
+        <button ng-click="sortType = 'brand_name'; sortReverse = !sortReverse">
+          brand_name
+        </button>
+      </div>
+      <div style="position:relative;float:left;width:25%;">
+        <button ng-click="sortType = 'generic_name'; sortReverse = !sortReverse">
+          generic_name
+        </button>
+      </div>
+      <div style="position:relative;float:left;width:25%;">apis</div>
+      <div style="position:relative;float:left;width:25%;">
+        <button ng-click="sortType = 'price'; sortReverse = !sortReverse">
+          price
+        </button>
+      </div>
+    </div>
+    <div ng-repeat="result in results | orderBy:sortType:sortReverse">
+      <div style="clear:both;" ng-click="showMedication(result)">
+        <div style="position:relative;float:left;width:25%;">{{result.brand_name}}</div>
+        <div style="position:relative;float:left;width:25%;">{{result.generic_name}}</div>
+        <div style="position:relative;float:left;width:25%;">{{result.apis}}</div>
+        <div style="position:relative;float:left;width:25%;">{{ result.price | currency: result.currency_symbol}}</div>
+      </div>
+      <div style="clear:both;position:relative;float:left;width:100%" ng-show="result.show">
+        <p>I am details</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<div ng-controller="homeController">
+  <form  ng-submit="processForm()">
+    <div id="query-group" class="form-group">
+      <input type="text" name="query" class="form-control" placeholder="Der generischer- oder Brand-name von einem Medikament" size="100px" ng-model="formData.query">
+    </div>
+
+    <button type="submit" class="btn btn-success btn-lg btn-block">Submit!</button>
+  </form>
+{{ formData }}
+</div>

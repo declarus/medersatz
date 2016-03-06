@@ -35,7 +35,7 @@ RSpec.describe Seeker do
 
   describe '#decorate' do
     let!(:results) { Seeker.find(query) }
-    let!(:decorated_results) { "[{\"id\":#{med2.id},\"brand_name\":\"Patented\",\"generic_name\":\"Generic\",\"apis\":\"Generic, Ingredients\",\"price\":\"15.99\",\"currency_symbol\":\"$\"},{\"id\":#{med1.id},\"brand_name\":\"Brand1\",\"generic_name\":\"Generic\",\"apis\":\"Generic, Other, Ingredients\",\"price\":\"17.99\",\"currency_symbol\":\"€\"}]" }
+    let!(:decorated_results) { "{\"results\":[{\"id\":#{med2.id},\"brand_name\":\"Patented\",\"generic_name\":\"Generic\",\"apis\":\"Generic, Ingredients\",\"price\":\"15.99\",\"currency_symbol\":\"$\"},{\"id\":#{med1.id},\"brand_name\":\"Brand1\",\"generic_name\":\"Generic\",\"apis\":\"Generic, Other, Ingredients\",\"price\":\"17.99\",\"currency_symbol\":\"€\"}],\"total_results\":2}" }
     subject { Seeker.decorate(results) }
 
     it { is_expected.to eq decorated_results }
