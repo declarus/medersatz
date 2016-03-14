@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       post '/meds/search', to: 'meds#search', as: 'meds_search'
       get '/meds/:id', to: 'meds#show', as: 'med_path'
+      post '/login', to: 'sessions#create'
+      delete '/logout', to: 'sessions#destroy'
+      resources :users
     end
   end
 end
