@@ -4,16 +4,16 @@ module Api
       def create
         user = User.find_by(email: session_params[:email].downcase)
         if user && user.authenticate(session_params[:password])
-          log_in(user.id)
-          render_json true
+          user = log_in(user)
+          render json: user, status: 200, location: [:api, :v1, user]
         else
-          render_json user.errors
+          render json: { errors: 'Invalid email or password' }, status: 422
         end
       end
 
       def destroy
-        log_out
-        render_json true
+        log_out(params[:id])
+        head 204
       end
 
       private

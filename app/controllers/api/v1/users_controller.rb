@@ -1,8 +1,9 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      before_action :set_user, only: [:show, :update, :destroy]
-      before_filter :only_yourself, except: [:index, :show]
+      before_action :authenticate_user!, except: [:create]
+      before_action :set_user, only: [:show, :destroy]
+      # before_action :only_yourself, except: [:index, :show, :create]
 
       # GET /api/v1/users
       def index
@@ -21,7 +22,7 @@ module Api
         @user = User.new(user_params)
 
         if @user.save
-          render json: @user, status: :created, location: @user
+          render json: @user, status: :created
         else
           render json: @user.errors, status: :unprocessable_entity
         end
@@ -29,8 +30,9 @@ module Api
 
       # PATCH/PUT /api/v1/users/1
       def update
+        @user = current_user
         if @user.update(user_params)
-          render json: @user
+          render json: { id: @user.id, email: @user.email, auth_token: @user.auth_token }
         else
           render json: @user.errors, status: :unprocessable_entity
         end
@@ -44,7 +46,7 @@ module Api
       private
         # Use callbacks to share common setup or constraints between actions.
         def set_user
-          @user = User.find(params[:id])
+          @user = User.select(:id, :email, :auth_token).find(params[:id])
         end
 
         # Only allow a trusted parameter "white list" through.
